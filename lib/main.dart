@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:list/covid_model.dart';
+import 'package:list/menu.dart';
 
 
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.green,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textTheme: TextTheme(
           headline1: TextStyle(
@@ -44,13 +45,17 @@ class MyApp extends StatelessWidget {
 class Test extends StatelessWidget {
   Test({Key? key}) : super(key: key);
 
-  final List<CovidModel> covidReportList = [
-    CovidModel(date: 'lalala_LEO', mentter: 'lalala_LUCA',caption: 'BFF',comment: 'WOW',avatar: 'leo.png',feed:  'leo1.png'),
-    CovidModel(date: 'lalala_LUCA',  mentter: 'lalalal_lisa', caption: 'สวัสดีปีใหม่',comment: 'Happy New Year',avatar:'luca1.png',feed:'luca.png'),
-    CovidModel(date: 'lalala_LILY',   mentter: 'lalala_LUCA',caption: ':)',comment: 'Mylove',avatar: 'lily.png',feed: 'lily1.png'),
-    CovidModel(date: 'lalala_LOUIS',   mentter: 'lalala_LEGO',caption: 'เซลฟี่',comment: 'bro!',avatar: 'louis.png',feed:'louis1.png'),
-    CovidModel(date: 'lalala_LEGO',   mentter: 'lalala_LOUIS',caption: 'ใครปิดไฟ!',comment: 'เจ้าแมวโง่',avatar: 'lego.png',feed:'lego1.png'),
-    CovidModel(date: 'lalala_LOVE',   mentter: 'lalala_LEGO',caption: 'มามี๊',comment: 'ไม่ๆๆๆ',avatar: 'love1.jpg',feed:'love.png'),
+  final List<MenuModel> MenuReportList = [
+    MenuModel(menu: 'กล้วยบวดชี', price: '30 บาท',pics:  'hw11-1.png'),
+    MenuModel(menu: 'ทองหยิบ',price: '40 บาท',pics:'hw11-2.png'),
+    MenuModel(menu: 'ลูกชุบ',price: '30 บาท',pics: 'hw11-3.png'),
+    MenuModel(menu: 'บัวลอย',price: '50 บาท',pics:'hw11-4.png'),
+    MenuModel(menu: 'ขนมหม้อแกง',price: '60 บาท',pics:'hw11-5.png'),
+    MenuModel(menu: 'อาลัว',   price: '30 บาท',pics:'hw11-7.png'),
+    MenuModel(menu: 'ขนมดอกจอก',   price: '40 บาท',pics:'hw11-8.png'),
+    MenuModel(menu: 'ตะโก้',   price: '30 บาท',pics:'hw11-9.png'),
+    MenuModel(menu: 'ปากริมไข่เต่า',   price: '30 บาท',pics:'hw11-10.png'),
+    MenuModel(menu: 'ขนมพระพาย',   price: '50 บาท',pics:'hw11-11.png'),
   ];
 
 
@@ -58,21 +63,29 @@ class Test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('lalala_Lfamily')),
-      body: ListView.builder(
-          itemCount: covidReportList.length,
-          itemBuilder: (context, index) =>
-              MyCard(covid: covidReportList[index])),
+      appBar: AppBar(title: Text('KHANOM THAI')),
+      body:
+      Column(
+        children: [
+          ElevatedButton(onPressed: (){} , child: const Text('LOAD DATA')),
+          Expanded(
+            child: ListView.builder(
+                itemCount: MenuReportList.length,
+                itemBuilder: (context, index) =>
+                    MyCard(menu: MenuReportList[index])),
+          ),
+        ],
+      ),
     );
   }
 }
 
 class MyCard extends StatelessWidget {
-  final CovidModel covid;
+  final MenuModel menu;
 
   const MyCard({
     Key? key,
-    required this.covid,
+    required this.menu,
 
   }) : super(key: key);
 
@@ -81,62 +94,31 @@ class MyCard extends StatelessWidget {
     return Card(
       elevation: 5.0,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                CircleAvatar(backgroundImage: AssetImage('assets/images/${covid.avatar}'),),
+                Image.asset('assets/images/${menu.pics}',width: 100.0,),
                 SizedBox(width: 20.0,),
-                Text(covid.date),
-                Expanded(child: IconButton(onPressed:(){}, icon: Icon(Icons.more_vert),alignment: Alignment.topRight,)),
-              ],
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              children: [Expanded(child: Image.asset('assets/images/${covid.feed}'))],
-            ),
-            Container(height: 20.0,),
-
-            Row(
-              children: [
-                Expanded(
-                    child: Text(covid.caption))
-              ],
-            ),
-            Container(height: 20.0,),
-            Column(
-              children: [
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-
-                    Text(covid.mentter,style: TextStyle(
-                      color: Colors.amber,
-                    ),),
-                    Text(covid.comment),
+                    Text(menu.menu),
+                    Text(menu.price),
                   ],
                 ),
               ],
             ),
 
-               Column(
-                children: [
-                  Row(
-                    children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border),),
-                      Expanded(
-                        child: Container(height: 30.0,
-                          child: TextField(decoration: InputDecoration(hintText: 'Add comment'),
-                          ),),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+
+
+
+
+
+
+
 
           ],
         ),
